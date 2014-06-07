@@ -3,3 +3,6 @@
 /java/ping/bin
 /java/ping/.classpath
 /java/.metadata
+*.pyo
+*.pyc
+__pycache__
