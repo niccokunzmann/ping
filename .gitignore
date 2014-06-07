@@ -6,3 +6,5 @@
 *.pyo
 *.pyc
 __pycache__
+/.net/ping/ping/bin
+/.net/ping/ping/obj
