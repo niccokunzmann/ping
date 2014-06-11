@@ -1,5 +1,11 @@
 import Pyro4
 
+try:
+    import hanging_threads
+except ImportError:
+    pass
+
+
 class Block(object):
 
     def __init__(self, playfield):

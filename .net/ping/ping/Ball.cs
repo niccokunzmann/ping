@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace ping
 {
@@ -23,13 +24,12 @@ namespace ping
         {
             return new System.Drawing.Rectangle(
                 this.x - this.radius, this.y - this.radius, 
-                this.x + this.radius, this.y + this.radius);
+                2 * this.radius, 2 * this.radius);
         }
 
-        internal void Draw(System.Drawing.Pen pen, System.Drawing.Graphics g)
+        internal void Draw(System.Drawing.Graphics g)
         {
-            pen.Color = System.Drawing.Color.Black;
-            g.DrawEllipse(pen, Rectangle());
+            g.FillEllipse(Brushes.Blue, this.Rectangle());
         }
     }
 }

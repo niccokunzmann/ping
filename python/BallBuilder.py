@@ -1,12 +1,16 @@
 import Pyro4
+try:
+    import hanging_threads
+except ImportError:
+    pass
 
 class Ball(object):
 
     def __init__(self, playfield):
+        print('Ball', playfield)
         self.playfield = playfield
         self.uri = daemon.register(self)
         self.as_proxy = Pyro4.Proxy(self.uri)
-        self.playfield.add_ball(self.as_proxy)
 
         self.x = self.playfield.get_width() / 2
         self.y = self.playfield.get_height() / 2
@@ -14,6 +18,10 @@ class Ball(object):
 
         self.direction_x = 0
         self.direction_y = -10
+        print(1)
+        self.playfield.add_ball(self.as_proxy)
+        print(2)
+        
 
     def get_radius(self):
         return self.radius
