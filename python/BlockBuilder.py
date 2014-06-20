@@ -62,6 +62,9 @@ block_builder = BlockBuilder()
 
 daemon=Pyro4.Daemon()                 # make a Pyro daemon
 ns=Pyro4.locateNS()                   # find the name server
+playfield = Pyro4.Proxy(ns.lookup('ping.playfield'))
+playfield.add_daemon(daemon)
+
 uri=daemon.register(block_builder)        # register the greeting object as a Pyro object
 ns.register("ping.blocks", uri)    # register the object with a name in the name server
 print("Ready. block_builder uri = {}".format(uri))      # print the uri so we can use it in the client later

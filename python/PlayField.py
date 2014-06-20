@@ -20,6 +20,7 @@ class PlayField(object):
         self.as_proxy = Pyro4.Proxy(self.uri)
         self.balls = []
         self.blocks = []
+        self.shutdown_daemons = []
 
     def get_width(self):
         return int(500)
@@ -53,9 +54,18 @@ class PlayField(object):
         print('create_block', block)
         return block
 
+    def shutdown(self):
+        for _daemon in reversed(self.shutdown_daemons):
+            _daemon.shutdown()
+
+    def add_daemon(self, daemon):
+        self.shutdown_daemons.append(daemon)
+        
+
 daemon=Pyro4.Daemon(socket.gethostbyname(socket.gethostname()))
 ns=Pyro4.locateNS()                   # find the name server
 playfield = PlayField()
+playfield.add_daemon(daemon)
 uri = playfield.uri
 ns.register("ping.playfield", uri)    # register the object with a name in the name server
 print("Ready. Playfield uri = {}".format(uri))      # print the uri so we can use it in the client later
