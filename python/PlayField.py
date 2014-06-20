@@ -23,6 +23,9 @@ class PlayField(object):
         self.blocks = []
         self.shutdown_daemons = []
 
+    def is_paused(self):
+        return bool(0)
+
     def get_width(self):
         return int(500)
 
