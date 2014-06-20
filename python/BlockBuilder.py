@@ -46,6 +46,9 @@ class Block(object):
             if ball_y + ball_radius > self.y:
                 ball.repell_from_block(self.as_proxy)
 
+    def schedule(self):
+        pass
+
 
 class BlockBuilder(object):
 
