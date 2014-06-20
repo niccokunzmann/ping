@@ -21,6 +21,9 @@ class PlayField(object):
         self.balls = []
         self.blocks = []
 
+    def is_paused(self):
+        return bool(0)
+
     def get_width(self):
         return int(500)
 
