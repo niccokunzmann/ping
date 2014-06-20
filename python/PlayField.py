@@ -1,5 +1,6 @@
 import Pyro4
 import socket
+import Pyro4.errors
 
 try:
     import hanging_threads
@@ -56,7 +57,10 @@ class PlayField(object):
 
     def shutdown(self):
         for _daemon in reversed(self.shutdown_daemons):
-            _daemon.shutdown()
+            try:
+                _daemon.shutdown()
+            except Pyro4.errors.ConnectionClosedError:
+                pass
 
     def add_daemon(self, daemon):
         self.shutdown_daemons.append(daemon)
