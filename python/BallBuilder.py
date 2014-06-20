@@ -66,6 +66,9 @@ class Ball(object):
         self.direction_x = direction_x * self.velocity / size
         self.direction_y = direction_y * self.velocity / size
 
+    def schedule(self):
+        self.move
+
 
 class BallBuilder(object):
 
