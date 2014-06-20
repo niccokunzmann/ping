@@ -69,5 +69,7 @@ uri=daemon.register(block_builder)        # register the greeting object as a Py
 ns.register("ping.blocks", uri)    # register the object with a name in the name server
 print("Ready. block_builder uri = {}".format(uri))      # print the uri so we can use it in the client later
 daemon.requestLoop()                  # start the event loop of the server to wait for calls
+
+ns.remove("ping.blocks")
         
             
