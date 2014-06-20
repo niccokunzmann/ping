@@ -14,6 +14,11 @@ import Pyro4
 import Pyro4.errors
 import Pyro4.message
 
+try:
+    import exceptions
+except ImportError:
+    import Pyro4._exceptions as exceptions
+
 log=logging.getLogger("Pyro4.util")
 
 
