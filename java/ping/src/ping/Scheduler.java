@@ -21,6 +21,10 @@ public class Scheduler {
 				for(PyroProxy ball:balls) {
 					ball.call_oneway("schedule");
 				}
+				List<PyroProxy> blocks = (List<PyroProxy>)playfield.call("get_blocks");
+				for(PyroProxy block:blocks) {
+					block.call_oneway("schedule");
+				}
 			}
 			Thread.sleep(100);
 		}
