@@ -96,7 +96,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(666, 544);
+            this.ClientSize = new System.Drawing.Size(666, 584);
             this.Controls.Add(this.ballButton);
             this.Controls.Add(this.playfield_panel);
             this.Controls.Add(this.testlabel);
