@@ -49,6 +49,13 @@ class Block(object):
     def schedule(self):
         pass
 
+    def asDict(self):
+        return dict(x = self.get_x(),
+                    y = self.get_y(),
+                    height = self.get_height(),
+                    width = self.get_width(),
+                    )
+
 
 class BlockBuilder(object):
 

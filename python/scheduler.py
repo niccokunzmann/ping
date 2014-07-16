@@ -12,5 +12,5 @@ while 1:
         x = ball.get_x()
         y = ball.get_y()
         print('\t\tx, y : {}, {}'.format(x, y))
-    time.sleep(0.5)
+    time.sleep(0.05)
 

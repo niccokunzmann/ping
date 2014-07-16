@@ -17,7 +17,7 @@ class Ball(object):
         self.radius = 5
 
         self.direction_x = 0
-        self.direction_y = -10
+        self.direction_y = -1.0
         self.playfield.add_ball(self.as_proxy)
         
 
@@ -51,11 +51,14 @@ class Ball(object):
         for block in self.get_blocks():
             # collision block
             # calls repell_from_block
-            block.collides_with(self.as_proxy)
+            block.collides_with_ball(self.as_proxy)
 
     def get_blocks(self):
         return self.playfield.get_blocks()
 
+    @property
+    def velocity(self):
+        return (self.direction_x ** 2 + self.direction_y ** 2 ) ** 0.5
 
     def repell_from_block(self, block):
         direction_x = (self.x - block.get_x() - block.get_width() / 2)
@@ -66,6 +69,11 @@ class Ball(object):
 
     def schedule(self):
         self.move()
+
+    def asDict(self):
+        return dict(x = self.get_x(),
+                    y = self.get_y(),
+                    radius = self.get_radius())
 
 
 class BallBuilder(object):
