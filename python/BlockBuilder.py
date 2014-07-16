@@ -1,4 +1,5 @@
 import Pyro4
+import socket
 
 try:
     import hanging_threads
@@ -89,7 +90,7 @@ class BlockBuilder(object):
 
 block_builder = BlockBuilder()
 
-daemon=Pyro4.Daemon()                 # make a Pyro daemon
+daemon=Pyro4.Daemon(socket.gethostbyname(socket.gethostname()))                 # make a Pyro daemon
 ns=Pyro4.locateNS()                   # find the name server
 playfield = Pyro4.Proxy(ns.lookup('ping.playfield'))
 

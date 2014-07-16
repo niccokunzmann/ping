@@ -1,4 +1,5 @@
 import Pyro4
+import socket
 try:
     import hanging_threads
 except ImportError:
@@ -92,7 +93,7 @@ class BallBuilder(object):
 
 ball_builder = BallBuilder()
 
-daemon=Pyro4.Daemon()                 # make a Pyro daemon
+daemon=Pyro4.Daemon(socket.gethostbyname(socket.gethostname()))                 # make a Pyro daemon
 ns=Pyro4.locateNS()                   # find the name server
 playfield = Pyro4.Proxy(ns.lookup('ping.playfield'))
 daemon_proxy = Pyro4.Proxy(daemon.register(daemon))
