@@ -18,9 +18,7 @@ class Ball(object):
 
         self.direction_x = 0
         self.direction_y = -10
-        print(1)
         self.playfield.add_ball(self.as_proxy)
-        print(2)
         
 
     def get_radius(self):
@@ -67,7 +65,7 @@ class Ball(object):
         self.direction_y = direction_y * self.velocity / size
 
     def schedule(self):
-        self.move
+        self.move()
 
 
 class BallBuilder(object):
