@@ -17,4 +17,6 @@ Type checks where they are usually not:
 - block steuern
 
 
-synchron ist doof, futures wären toll
+- synchron ist doof, futures wären toll
+- too many connections
+- register under ip
