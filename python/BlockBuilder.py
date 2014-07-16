@@ -46,6 +46,7 @@ class Block(object):
         else:
             if ball_y + ball_radius > self.y:
                 ball.repell_from_block(self.as_proxy)
+        ball._pyroRelease()
 
     def schedule(self):
         self.move()

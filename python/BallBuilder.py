@@ -54,6 +54,7 @@ class Ball(object):
             # collision block
             # calls repell_from_block
             block.collides_with_ball(self.as_proxy)
+            block._pyroRelease()
 
     def get_blocks(self):
         return self.playfield.get_blocks()
