@@ -12,3 +12,9 @@ Type checks where they are usually not:
     def get_y(self):
         return int(self.y)
 
+- block zeichnen
+- grobstruktur vom vortrag
+- block steuern
+
+
+synchron ist doof, futures wären toll

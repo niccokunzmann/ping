@@ -40,9 +40,10 @@
             // 
             // testbutton
             // 
-            this.testbutton.Location = new System.Drawing.Point(12, 12);
+            this.testbutton.Location = new System.Drawing.Point(16, 15);
+            this.testbutton.Margin = new System.Windows.Forms.Padding(4);
             this.testbutton.Name = "testbutton";
-            this.testbutton.Size = new System.Drawing.Size(75, 23);
+            this.testbutton.Size = new System.Drawing.Size(100, 28);
             this.testbutton.TabIndex = 0;
             this.testbutton.Text = "connect";
             this.testbutton.UseVisualStyleBackColor = true;
@@ -51,9 +52,10 @@
             // testlabel
             // 
             this.testlabel.AutoSize = true;
-            this.testlabel.Location = new System.Drawing.Point(93, 17);
+            this.testlabel.Location = new System.Drawing.Point(124, 21);
+            this.testlabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.testlabel.Name = "testlabel";
-            this.testlabel.Size = new System.Drawing.Size(16, 13);
+            this.testlabel.Size = new System.Drawing.Size(20, 17);
             this.testlabel.TabIndex = 1;
             this.testlabel.Text = "...";
             // 
@@ -68,17 +70,19 @@
             // 
             // playfield_panel
             // 
-            this.playfield_panel.Location = new System.Drawing.Point(13, 42);
+            this.playfield_panel.Location = new System.Drawing.Point(17, 52);
+            this.playfield_panel.Margin = new System.Windows.Forms.Padding(4);
             this.playfield_panel.Name = "playfield_panel";
-            this.playfield_panel.Size = new System.Drawing.Size(267, 216);
+            this.playfield_panel.Size = new System.Drawing.Size(356, 266);
             this.playfield_panel.TabIndex = 2;
             this.playfield_panel.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // ballButton
             // 
-            this.ballButton.Location = new System.Drawing.Point(145, 12);
+            this.ballButton.Location = new System.Drawing.Point(193, 15);
+            this.ballButton.Margin = new System.Windows.Forms.Padding(4);
             this.ballButton.Name = "ballButton";
-            this.ballButton.Size = new System.Drawing.Size(31, 23);
+            this.ballButton.Size = new System.Drawing.Size(41, 28);
             this.ballButton.TabIndex = 3;
             this.ballButton.Text = "ball";
             this.ballButton.UseVisualStyleBackColor = true;
@@ -90,13 +94,16 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 270);
+            this.ClientSize = new System.Drawing.Size(666, 544);
             this.Controls.Add(this.ballButton);
             this.Controls.Add(this.playfield_panel);
             this.Controls.Add(this.testlabel);
             this.Controls.Add(this.testbutton);
+            this.DoubleBuffered = true;
+            this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Ping";
             this.Load += new System.EventHandler(this.Form1_Load);

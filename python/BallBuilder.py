@@ -33,21 +33,23 @@ class Ball(object):
     def move(self):
         self.x += self.direction_x
         self.y += self.direction_y
+        playfield_width = self.playfield.get_width()
+        playfield_height = self.playfield.get_height()
         if self.x < self.radius:
             # collision left
             self.x = self.radius * 2 - self.x
             self.direction_x *= -1
-        elif self.x + self.radius > self.playfield.get_width():
+        elif self.x + self.radius > playfield_width:
             # collision right
-            self.x = width * 2 - self.radius * 2 - self.x
+            self.x = playfield_width * 2 - self.radius * 2 - self.x
             self.direction_x *= -1
         if self.y < self.radius:
             # collision top
             self.direction_y *= -1
             self.y = self.radius * 2 - self.y
-        elif self.y > self.playfield.get_height():
+        elif self.y > playfield_height:
             # collision bottom
-            self.y = self.playfield.get_height()
+            self.y = playfield_height
         for block in self.get_blocks():
             # collision block
             # calls repell_from_block

@@ -19,6 +19,7 @@ class Block(object):
 
         self.x = self.playfield.get_width() / 2 - self.get_width() / 2
         self.y = self.playfield.get_height() - self.get_height() - 5
+        self.move_not()
 
     def get_x(self):
         return int(self.x)
@@ -47,7 +48,7 @@ class Block(object):
                 ball.repell_from_block(self.as_proxy)
 
     def schedule(self):
-        pass
+        self.move()
 
     def asDict(self):
         return dict(x = self.get_x(),
@@ -55,6 +56,22 @@ class Block(object):
                     height = self.get_height(),
                     width = self.get_width(),
                     )
+
+    def move_left(self):
+        self.direction = -1
+
+    def move_right(self):
+        self.direction = 1
+
+    def move_not(self):
+        self.direction = 0
+
+    def move(self):
+        self.x += self.direction
+        if self.x < 0:
+            self.x = 0
+        if self.x + self.width > self.playfield.get_width():
+            self.x = self.playfield.get_width() - self.width
 
 
 class BlockBuilder(object):

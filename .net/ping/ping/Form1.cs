@@ -18,10 +18,13 @@ namespace ping
         private ArrayList balls;
         private ArrayList blocks;
         private PyroProxy block;
+        private Keys last_press;
 
         public Form1()
         {
             InitializeComponent();
+            this.KeyDown += f_KeyDown;
+            this.KeyUp += f_KeyUp;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -35,9 +38,32 @@ namespace ping
                 System.Windows.Forms.ControlStyles.DoubleBuffer, true });
             connected = false;
             balls = new ArrayList();
+            blocks = new ArrayList();
             render_timer.Start();
             //connect();
             updater.RunWorkerAsync();
+        }
+
+        void f_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (!connected) return;
+            if (e.KeyCode == Keys.A)
+            {
+                block.call_oneway("move_left");
+                last_press = e.KeyCode;
+            }
+            if (e.KeyCode == Keys.D)
+            {
+                block.call_oneway("move_right");
+                last_press = e.KeyCode;
+            }
+        }
+        void f_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (last_press == e.KeyCode && connected)
+            {
+                block.call_oneway("move_not");
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -50,6 +76,7 @@ namespace ping
                 }
                 catch (System.Net.Sockets.SocketException) 
                 {
+                    // http://stackoverflow.com/questions/12736720/how-do-you-create-a-dialog-message-box-using-asp-net
                     var msg = MessageBox.Show("Could not connect. Start the game first! Retry?", "WARNING!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
                     if (msg == DialogResult.Yes)
                     {
@@ -83,6 +110,7 @@ namespace ping
             string message = (string)result;  // cast to the type that 'pythonmethod' returns
             playfield_panel.Width = (int)playfield.call("get_width");
             playfield_panel.Height = (int)playfield.call("get_height");
+            block = (PyroProxy)playfield.call("create_block");
             connected = true; // Pyro Proxies are not thread safe
             return message;
         }
@@ -91,8 +119,6 @@ namespace ping
         {
             if (connected)
             {
-                
-                //playfield_panel.Invalidate();
                 playfield_panel.Refresh();
             }
         }
@@ -144,10 +170,15 @@ namespace ping
                 g.Clear(Color.Red);
             }
             Pen pen = new Pen(Color.Black);
-            
+
             foreach (Ball ball in balls)
             {
                 ball.Draw(g);
+            }
+            
+            foreach (Block block in blocks)
+            {
+                block.Draw(g);
             }
             pen.Dispose();
             
