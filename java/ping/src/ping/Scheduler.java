@@ -28,7 +28,6 @@ public class Scheduler {
 					block.close();
 				}
 			}
-			System.out.println("scheduled");
 			Thread.sleep(20);
 		}
 
