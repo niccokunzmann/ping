@@ -186,7 +186,9 @@ namespace ping
 
         private void ballButton_Click(object sender, EventArgs e)
         {
-            new_playfield().call_oneway("create_ball");
+            PyroProxy playfield = new_playfield();
+            playfield.call_oneway("create_ball");
+            playfield.close();
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
