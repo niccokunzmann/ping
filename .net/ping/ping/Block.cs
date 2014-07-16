@@ -8,39 +8,41 @@ using System.Collections;
 
 namespace ping
 {
-    class Ball
+    public class Block
     {
-        public int x;
-        public int y;
-        public int radius;
+        private int x;
+        private int y;
+        private int width;
+        private int height;
 
-        public static Ball FromPyroProxy(PyroProxy proxy)
+        public static Block FromPyroProxy(PyroProxy proxy)
         {
             IDictionary values = (IDictionary)proxy.call("asDict");
             int x = (int)values["x"];
             int y = (int)values["y"];
-            int radius = (int)values["radius"];
-            return new Ball(x, y, radius);
+            int width = (int)values["width"];
+            int height = (int)values["height"];
+            return new Block(x, y, width, height);
         }
 
-        public Ball(int x, int y, int radius)
-        {
+        public Block(int x, int y, int width, int height)
+	    {
             this.x = x;
             this.y = y;
-            this.radius = radius;
-        }
-
+            this.width = width;
+            this.height = height;
+	    }
 
         internal System.Drawing.Rectangle Rectangle()
         {
             return new System.Drawing.Rectangle(
-                this.x - this.radius, this.y - this.radius, 
-                2 * this.radius, 2 * this.radius);
+                this.x, this.y, 
+                this.width, this.height);
         }
 
         internal void Draw(System.Drawing.Graphics g)
         {
-            g.FillEllipse(Brushes.Blue, this.Rectangle());
+            g.FillRectangle(Brushes.Black, this.Rectangle());
         }
     }
 }

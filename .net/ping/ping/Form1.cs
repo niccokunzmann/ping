@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Razorvine.Pyro;
 using System.Collections;
@@ -16,10 +13,11 @@ namespace ping
     public partial class Form1 : Form
     {
 
-        PyroProxy playfield;
-        bool connected;
-        ArrayList balls;
-        int counter;
+        private PyroProxy playfield;
+        private bool connected;
+        private ArrayList balls;
+        private ArrayList blocks;
+        private PyroProxy block;
 
         public Form1()
         {
@@ -37,7 +35,6 @@ namespace ping
                 System.Windows.Forms.ControlStyles.DoubleBuffer, true });
             connected = false;
             balls = new ArrayList();
-            counter = 0;
             render_timer.Start();
             //connect();
             updater.RunWorkerAsync();
@@ -46,26 +43,48 @@ namespace ping
         private void button1_Click(object sender, EventArgs e)
         {
             this.testlabel.Text = "connecting ...";
-            string message = this.connect();
+            string message;
+            while (true) {
+                try { 
+                    message = this.connect();
+                }
+                catch (System.Net.Sockets.SocketException) 
+                {
+                    var msg = MessageBox.Show("Could not connect. Start the game first! Retry?", "WARNING!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                    if (msg == DialogResult.Yes)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                } 
+                break;
+            }
             this.testlabel.Text = message;
         }
 
-        private String connect()
+        private PyroProxy new_playfield()
         {
             using (NameServerProxy ns = NameServerProxy.locateNS(null))
             {
                 using (PyroProxy playfield = new PyroProxy(ns.lookup("ping.playfield")))
                 {
-                    object result = playfield.call("test", "connected");
-                    string message = (string)result;  // cast to the type that 'pythonmethod' returns
-                    this.playfield = playfield;
-                    connected = true;
-                    playfield_panel.Width = (int)playfield.call("get_width");
-                    playfield_panel.Height = (int)playfield.call("get_height");
-                    return message;
+                    return playfield;
                 }
             }
+        }
 
+        private String connect()
+        {
+            playfield = new_playfield();
+            Object result = playfield.call("test", "connected");
+            string message = (string)result;  // cast to the type that 'pythonmethod' returns
+            playfield_panel.Width = (int)playfield.call("get_width");
+            playfield_panel.Height = (int)playfield.call("get_height");
+            connected = true; // Pyro Proxies are not thread safe
+            return message;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -79,16 +98,32 @@ namespace ping
         }
 
         private void update_game() {
+            update_balls();
+            update_blocks();
+        }
+
+        private void update_blocks()
+        {
             // http://www.dotnetperls.com/arraylist
-            List<Object> server_balls = (List<Object>)playfield.call("get_balls");
-            ArrayList current_balls = new ArrayList();
-            foreach (PyroProxy ball in server_balls)
+            List<Object> proxies = (List<Object>)playfield.call("get_blocks");
+            ArrayList current_blocks = new ArrayList();
+            foreach (PyroProxy block in proxies)
             {
-                counter += 1;
-                int x = (int)ball.call("get_x");
-                int y = (int)ball.call("get_y");
-                int radius = (int)ball.call("get_radius");
-                current_balls.Add(new Ball(x, y, radius));
+                current_blocks.Add(Block.FromPyroProxy(block));
+                block.close();
+
+            }
+            this.blocks = current_blocks;
+        }
+
+        private void update_balls()
+        {
+            // http://www.dotnetperls.com/arraylist
+            List<Object> proxies = (List<Object>)playfield.call("get_balls");
+            ArrayList current_balls = new ArrayList();
+            foreach (PyroProxy ball in proxies)
+            {
+                current_balls.Add(Ball.FromPyroProxy(ball));
                 ball.close();
 
             }
@@ -120,7 +155,7 @@ namespace ping
 
         private void ballButton_Click(object sender, EventArgs e)
         {
-            playfield.call_oneway("create_ball");
+            new_playfield().call_oneway("create_ball");
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
