@@ -7,3 +7,5 @@
 *.pyc
 __pycache__
 /.net/ping/ping/obj
+java/ping/src/ping/Scheduler.class
+java/ping/ping/Scheduler.class
