@@ -13,6 +13,7 @@ class Block(object):
         self.uri = daemon.register(self)
         self.as_proxy = Pyro4.Proxy(self.uri)
         self.playfield.add_block(self.as_proxy)
+        print('Block {}'.format(self.uri))
 
         self.width = 30
         self.height = 5

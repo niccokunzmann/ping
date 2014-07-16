@@ -7,10 +7,10 @@ except ImportError:
 class Ball(object):
 
     def __init__(self, playfield):
-        print('Ball', playfield)
         self.playfield = playfield
         self.uri = daemon.register(self)
         self.as_proxy = Pyro4.Proxy(self.uri)
+        print('Ball {}'.format(self.uri))
 
         self.x = self.playfield.get_width() / 2
         self.y = self.playfield.get_height() / 2
