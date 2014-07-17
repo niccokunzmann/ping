@@ -31,7 +31,7 @@ ERRORS
 
 16th of July 2014
 
--	we create so many open socket connections that there are no left on the computer
+-	we create so many open socket connections that there are no left on the computer. PyroProxy in Python creates a new TCP-Connection for every instance. We use double-dispatch between Ball and Block for collision detection. This creates new proxies for every `schedule()` call e.g. every time a ball moves and checks for collision. 
 
 Suggestions
 -----------
