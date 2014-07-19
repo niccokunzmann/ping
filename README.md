@@ -7,6 +7,8 @@ We use Python (Python2 or Python3 or Jython or IronPython), C# and Java.
 
 This was tested under Windows and Linux.
 
+Our [final_presenation](https://github.com/niccokunzmann/ping/blob/master/presentation/final_presentation.pdf?raw=true) is in the presentations folder.
+
 Use it
 ------
 
