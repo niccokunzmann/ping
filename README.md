@@ -9,6 +9,8 @@ This was tested under Windows and Linux.
 
 Our [final_presenation](https://github.com/niccokunzmann/ping/blob/master/presentation/final_presentation.pdf?raw=true) is in the presentations folder.
 
+This was created for the seminar [Component Programming and Middleware](http://hpi.de/studium/lehrveranstaltungen/it-systems-engineering/lehrveranstaltung/course/2014/komponentenprogrammierung_und_middleware.html).
+
 Use it
 ------
 
