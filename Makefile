@@ -11,8 +11,8 @@ run: all
 	sleep 1
 	./04_block.sh &
 	sleep 1
-	java -cp java/ping/src:java/ping/lib/pyrolite.jar:java/ping/lib/serpent.jar ping.Scheduler &
+	./05_scheduler_java.sh &
 	sleep 1
-	./.net/ping/ping/bin/Debug/ping.exe &
+	./06_ping.sh &
 
 .PHONY: all run
