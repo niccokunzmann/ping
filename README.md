@@ -5,10 +5,12 @@ This project uses [Pyro4](https://github.com/irmen/Pyro4) and [Pyrolite](https:/
 
 We use Python (Python2 or Python3 or Jython or IronPython), C# and Java.
 
+This was tested under Windows and Linux.
+
 Use it
 ------
 
-start the files in the following order:
+Start the files in the following order:
 
 1 name server  
 2 the playfield  
