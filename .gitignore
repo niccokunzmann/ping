@@ -10,3 +10,4 @@ __pycache__
 java/ping/src/ping/Scheduler.class
 java/ping/ping/Scheduler.class
 .net/ping/ping.v12.suo
+*.odp#

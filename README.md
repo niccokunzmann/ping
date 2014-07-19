@@ -28,12 +28,39 @@ When you are done you can run
 
 99 shutdown  
 
-ERRORS
-------
+Problems
+--------
 
 16th of July 2014
 
--	we create so many open socket connections that there are no left on the computer. PyroProxy in Python creates a new TCP-Connection for every instance. We use double-dispatch between Ball and Block for collision detection. This creates new proxies for every `schedule()` call e.g. every time a ball moves and checks for collision. 
+-	we create so many open socket connections that there are no left on the computer. PyroProxy in Python creates a new TCP-Connection for every instance. We use double-dispatch between Ball and Block for collision detection. This creates new proxies for every `ball.schedule()` call e.g. every time a ball moves and checks for collision. 
+
+-	In Pyrolite there are no future calls. If we want to get a result this may last some time:
+
+        private void update_balls()
+        {
+            List<Object> proxies = (List<Object>)playfield.call("get_balls");
+            foreach (PyroProxy ball in proxies)
+            {
+                //synchronous: copy data
+                balls.Add(Ball.FromPyroProxy(ball));
+            }
+        }
+
+-	"Ugly calls": `(int)playfield.call(“get_width”);` instead of `playfield.getWidth();`.
+	See [Stackoverflow](http://stackoverflow.com/questions/24365101/generate-method-if-not-existent) for sugestions. It suggests 3 solutions.
+
+-	The IP-address is put into the URI. Because of this we used 
+
+		Pyro4.Daemon(socket.gethostbyname(socket.gethostname()))     
+
+	instead of
+ 
+		Pyro4.Daemon()
+	
+	Still we are bound to one IP-address.
+
+For more see the final_presenation in the presentations folder.
 
 Suggestions
 -----------
