@@ -21,7 +21,7 @@ Start the files in the following order:
 3 the ball builder  
 4 the block builder  
 5 one of the schedulers  
-6 the ping program  
+6 the ping program (use `a` and `d` to move the slider)
 
 And if you like you can create single items:
 
